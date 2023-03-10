@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MapAPIs.ViewModels"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             x:DataType="vm:InfoPageViewModel"
+             x:Class="MapAPIs.Views.InfoPage">
+    <ScrollView>
+
+        <VerticalStackLayout VerticalOptions="Start"
+                             Margin="12,10">
+            <Border Style="{StaticResource customBorder}"
+                    Stroke="Green">
+                <VerticalStackLayout>
+                    <Image Source="{Binding Monkey.Image}"
+                           HeightRequest="200"
+                           WidthRequest="200" />
+
+                    <Label Text="{Binding Monkey.Name}"
+                           FontSize="Large" />
+
+                    <Label Text="{Binding Monkey.Details}"
+                           FontSize="Medium" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Copy"
+                    Command="{Binding CopyToClipboardCommand}" />
+
+            <Label Text="{Binding SavedTo}" />
+
+            <Entry Text="{Binding ToSave}" />
+
+            <Button Text="Save to Preferences"
+                    Command="{Binding SaveToPreferencesCommand}" />
+
+
+            <Button Text="Send Msg"
+                    Command="{Binding SendSmsCommand}" />
+
+            <maps:Map x:Name="map"
+                      MapType="Satellite"
+                      ItemsSource="{Binding Pins}"
+                      HeightRequest="200">
+                <maps:Map.ItemTemplate>
+                    <DataTemplate x:DataType="maps:Pin">
+                        <maps:Pin Location="{Binding Location}"
+                                  Address="{Binding Address}"
+                                  Label="{Binding Label}" />
+                    </DataTemplate>
+                </maps:Map.ItemTemplate>
+            </maps:Map>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
